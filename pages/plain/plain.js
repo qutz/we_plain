@@ -1,32 +1,32 @@
-const WxFly = require( '../../lib/wxplain.js' );
+const WxFly = require('../../lib/wxplain.js');
 
-Page( {
+Page({
     data: {
         modalHidden: "modal_hide",
         score: '0'
     },
-    onLoad: function( options ) {
+    onLoad: function (options) {
         // 页面初始化 options为页面跳转所带来的参数
     },
-    onReady: function() {
+    onReady: function () {
         // 页面渲染完成
     },
-    startGame: function() {
+    startGame: function () {
         const fly = this.fly;
-        this.setData( { score: 0, modalHidden: "modal_hide" });
+        this.setData({ score: 0, modalHidden: "modal_hide" });
         fly.startGame();
     },
-    move: function( event ) {
+    move: function (event) {
         const fly = this.fly;
-        var x = event.touches[ 0 ].clientX;
-        var y = event.touches[ 0 ].clientY;
-        fly.touchmove( x, y );
+        var x = event.touches[0].x;
+        var y = event.touches[0].y;
+        fly.touchmove(x, y);
     },
-    click: function() {
+    click: function () {
         const fly = this.fly;
         fly.touchclick();
     },
-    onShow: function() {
+    onShow: function () {
         const fly = this.fly = new WxFly(
             {
                 ctx: wx.createContext(),
@@ -34,14 +34,14 @@ Page( {
                 height: 625,
                 width: 375,
             });
-        fly.on( 'over', packet => {
-            this.setData( { score: packet.score, modalHidden: "" });
+        fly.on('over', packet => {
+            this.setData({ score: packet.score, modalHidden: "" });
         });
     },
-    onHide: function() {
+    onHide: function () {
         // 页面隐藏
     },
-    onUnload: function() {
+    onUnload: function () {
         // 页面关闭
     }
 })
